@@ -1,10 +1,17 @@
 backend:
   name: github
-  repo: OlehLazurkevych/autowelt-demo.github.io
+  repo: OlehLazurkevych/olehlazurkevych.github.io
   branch: main
   base_url: https://netlifyfunctionsoauthforgithub.netlify.app
   auth_endpoint: /.netlify/functions/oauth-start
-  site_domain: autowelt-demo.github.io # optional but recommended
+  site_domain: olehlazurkevych.github.io # optional but recommended
+
+site_url: https://olehlazurkevych.github.io
+display_url: olehlazurkevych.github.io
+
+logo:
+  src: /assets/img/logo.png
+  show_in_header: true
 
 media_folder: "assets/uploads"   # where images are stored in repo
 public_folder: "/assets/uploads" # how the site references them
@@ -14,13 +21,21 @@ collections:
     label: "Cars"
     folder: "_cars"
     create: true
-    slug: "{{slug}}"
+    slug: "{{slug}}-{{uuid}}"
+    media_folder: "/assets/uploads/cars/{{slug}}"
+    public_folder: "/assets/uploads/cars/{{slug}}"
     extension: "md"
     format: "frontmatter"
     fields:
       - { label: "Title", name: "title", widget: "string" }
-      - { label: "Price", name: "price", widget: "number" }
-      - { label: "Year", name: "year", widget: "number" }
-      - { label: "Mileage (km)", name: "mileage", widget: "number", required: false }
-      - { label: "Image", name: "image", widget: "image", required: false }
-      - { label: "Description", name: "body", widget: "markdown", required: false }
+      - { label: "Price (USD)", name: "price_usd", widget: "number", required: false }
+      - { label: "Year", name: "year", widget: "number", required: false }
+      - { label: "Engine", name: "engine", widget: "string", required: false }
+      - { label: "Under deposit", name: "under_deposit", widget: "boolean", default: false, required: false }
+      # multi-photo list (any amount)
+      - label: "Photos"
+        name: "photos"
+        widget: "list"
+        required: false
+        field: { label: "Photo", name: "photo", widget: "image" }
+      - { label: "Body", name: "body", widget: "markdown", required: false }

@@ -1,0 +1,35 @@
+---
+layout: default
+---
+
+<h1>{{ page.title }}</h1>
+
+{% assign photos = page.photos | default: empty %}
+{% if photos and photos.size > 0 %}
+  <div class="gallery">
+    {% for img in photos %}
+      {% if forloop.first %}
+        <div class="car-card__imgwrap">
+          <img class="{% if page.under_deposit %}is-dimmed{% endif %}" src="{{ img | relative_url }}" alt="{{ page.title | escape }} photo 1" loading="lazy">
+          {% if page.under_deposit %}
+            <div class="car-badge car-badge--deposit">UNDER DEPOSIT</div>
+          {% endif %}
+        </div>
+      {% else %}
+        <img src="{{ img | relative_url }}" alt="{{ page.title | escape }} photo {{ forloop.index }}" loading="lazy">
+      {% endif %}
+    {% endfor %}
+  </div>
+{% else %}
+  <img src="{{ site.default_car_image | relative_url }}" alt="No photo available" loading="lazy">
+{% endif %}
+
+<ul class="car-specs">
+  {% if page.price_usd %}<li><b>Price:</b> ${{ page.price_usd }}</li>{% endif %}
+  {% if page.year %}<li><b>Year:</b> {{ page.year }}</li>{% endif %}
+  {% if page.engine %}<li><b>Engine:</b> {{ page.engine }}</li>{% endif %}
+</ul>
+
+<div class="car-description">
+  {{ content }}
+</div>
