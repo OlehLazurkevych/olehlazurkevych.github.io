@@ -23,8 +23,6 @@ collections:
     folder: "_cars"
     create: true
     slug: "{{slug}}-{{year}}{{month}}{{day}}{{hour}}{{minute}}{{second}}"
-    media_folder: "assets/uploads/cars/{{slug}}-{{year}}{{month}}{{day}}{{hour}}{{minute}}{{second}}"
-    public_folder: "/assets/uploads/cars/{{slug}}-{{year}}{{month}}{{day}}{{hour}}{{minute}}{{second}}"
     extension: "md"
     format: "frontmatter"
     fields:
@@ -38,5 +36,10 @@ collections:
         name: "photos"
         widget: "list"
         required: false
-        field: { label: "Photo", name: "photo", widget: "image" }
+        field:
+          label: "Photo"
+          name: "photo"
+          widget: "image"
+          media_folder: "/assets/uploads/cars/{{slug}}"
+          public_folder: "/assets/uploads/cars/{{slug}}"
       - { label: "Body", name: "body", widget: "markdown", required: false }
