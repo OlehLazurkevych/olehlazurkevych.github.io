@@ -40,6 +40,6 @@ collections:
           label: "Photo"
           name: "photo"
           widget: "image"
-          media_folder: "/assets/uploads/cars/{{slug}}"
-          public_folder: "/assets/uploads/cars/{{slug}}"
+          media_folder: "/assets/uploads/cars"
+          public_folder: "/assets/uploads/cars"
       - { label: "Body", name: "body", widget: "markdown", required: false }
