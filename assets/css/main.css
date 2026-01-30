@@ -133,6 +133,8 @@ a{ color: inherit; }
 .car-card__imgwrap{
   height: 150px; /* fixed image area */
   background: rgba(255,255,255,.04);
+  position: relative;   /* anchor for badge */
+  overflow: hidden;
 }
 .car-card__img{
   width: 100%;
