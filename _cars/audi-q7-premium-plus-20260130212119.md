@@ -4,7 +4,7 @@ price_usd: 26300
 year: 2019
 engine: 2.0 бензин
 drive: Передній привід
-under_deposit: false
+under_deposit: true
 photos:
   - https://res.cloudinary.com/dpllddkot/image/upload/v1769805867/2026-01-30_22.43.31_e1cwpz.jpg
   - https://res.cloudinary.com/dpllddkot/image/upload/v1769805870/2026-01-30_22.43.35_fwqlt3.jpg
