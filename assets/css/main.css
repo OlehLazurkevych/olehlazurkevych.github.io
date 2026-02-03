@@ -124,10 +124,57 @@ a{ color: inherit; }
 .sortbar{
   height: 100%;
   display: flex;
-  gap: 12px;
+  gap: 0;
   align-items: center;
   justify-content: center;
 }
+/* Base button style (neutral, no background) */
+.sortbar .btn{
+  background: transparent;
+  border: 1px solid rgba(80, 110, 150, 0.28);
+  color: rgba(20, 35, 60, 0.72);
+  font-weight: 400;
+  font-size: 14px;
+  padding: 12px 18px;
+  cursor: pointer;
+  transition: all 180ms ease;
+}
+/* Outer rounded edges */
+.sortbar .btn:first-child{
+  border-radius: 999px 0 0 999px;
+  border-right: none;
+}
+.sortbar .btn:last-child{
+  border-radius: 0 999px 999px 0;
+}
+/* Hover effect: dreamy glow + stronger border */
+.sortbar .btn:hover{
+  background: radial-gradient(
+      circle at top,
+      rgba(180, 220, 255, 0.55),
+      rgba(255, 210, 225, 0.35)
+    );
+  border-color: rgba(80, 130, 200, 0.45);
+  color: rgba(20, 35, 60, 0.88);
+}
+/* Active press (not "active state", just click feedback) */
+.sortbar .btn:active{
+  transform: scale(0.98);
+}
+.sortbar .btn:first-child{
+  border-right: 1px solid rgba(80,110,150,0.18);
+}
+@media (max-width: 420px){
+  .sortbar{
+    width: 100%;
+  }
+  .sortbar .btn{
+    flex: 1;
+    text-align: center;
+  }
+}
+
+
 .btn{
   min-width: 170px;
   appearance: none;
