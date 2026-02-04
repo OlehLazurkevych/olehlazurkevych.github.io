@@ -465,3 +465,144 @@ a{ color: inherit; }
     align-items: flex-start;
   }
 }
+
+
+/* --- Car Page --- */
+
+/* Car page container wider on desktop */
+.container--car{
+  max-width: 980px;
+}
+
+@media (max-width: 420px){
+  .container--car{
+    max-width: none;
+    width: 100%;
+  }
+}
+
+/* Section 1: compact header */
+.section--carhead{ padding: 6px 0; }
+.carhead{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.carhead__logo{
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  object-fit: contain;
+}
+.carhead__phone{
+  text-decoration: none;
+  color: rgba(20, 35, 60, 0.90);
+  font-weight: 650;
+}
+
+/* Back link: underline is separate so it stays single-line */
+.backlink{
+  position: relative;
+  display: inline-block;
+  text-decoration: none;
+  color: rgba(20, 35, 60, 0.86);
+  font-weight: 650;
+  padding: 6px 6px 10px;
+}
+.backlink__u{
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  bottom: 2px;
+  height: 2px;
+  border-radius: 999px;
+  background: rgba(80, 130, 200, 0.35);
+  transition: 180ms ease;
+}
+.backlink:hover .backlink__u{
+  background: rgba(80, 130, 200, 0.90);
+  box-shadow: 0 0 16px rgba(80, 130, 200, 0.40);
+}
+
+/* Photo */
+.carphoto{
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  background: rgba(255,255,255,0.65);
+}
+.carphoto__img{
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+/* Car details */
+.cardetail{
+  margin-top: 14px;
+}
+.cardetail__title{
+  margin: 0;
+  font-size: 22px;
+  line-height: 1.15;
+  color: rgba(15, 25, 40, 0.95);
+  letter-spacing: 0.2px;
+}
+.cardetail__tags{
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.tag-pill{
+  font-size: 12px;
+  font-weight: 750;
+  color: rgba(20,35,60,0.80);
+  background: rgba(180,220,255,0.35);
+  border: 1px solid rgba(120,170,220,0.25);
+  padding: 6px 10px;
+  border-radius: 999px;
+}
+.tag-pill--deposit{
+  background: rgba(255,210,225,0.35);
+  border-color: rgba(255,180,200,0.25);
+}
+
+/* Meta block */
+.cardetail__meta{
+  margin-top: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 14px;
+  color: rgba(20,35,60,0.65);
+  font-size: 14px;
+}
+.price-inline{
+  color: rgba(20,35,60,0.90);
+  font-weight: 750;
+}
+
+/* Description */
+.cardetail__desc{
+  margin-top: 12px;
+  color: rgba(20,35,60,0.72);
+  line-height: 1.5;
+}
+
+/* More photos */
+.morephotos{
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.morephotos__img{
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+  display: block;
+  object-fit: cover;
+  background: rgba(255,255,255,0.65);
+}
