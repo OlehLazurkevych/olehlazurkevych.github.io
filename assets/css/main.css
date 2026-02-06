@@ -70,7 +70,7 @@ a{ color: inherit; }
   padding-top: 14px;
 }
 
-.ssection--carback + .section--footer{
+.section--carback + .section--footer{
   border-top: 1px solid rgba(255, 180, 200, 0.25);
   padding-top: 30px;
 }
@@ -412,6 +412,12 @@ a{ color: inherit; }
 }
 
 /* 4) footer actions */
+.footer-desc{
+  color: rgba(20, 35, 60, 0.85);
+  font-weight: 300;
+  font-size: 16px;
+}
+
 .actions{
   height: 70px;
   display: grid;
@@ -436,13 +442,13 @@ a{ color: inherit; }
 }
 .action-btn:hover{ background: rgba(255, 210, 225, 0.75); /* stronger rose glow */ }
 .action-ico{
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
   display: inline-flex;
 }
 .action-ico svg{
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
 }
 
 .copyright{
