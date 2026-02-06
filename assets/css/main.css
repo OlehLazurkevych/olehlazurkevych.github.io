@@ -575,10 +575,12 @@ a{ color: inherit; }
   color: rgba(20,35,60,0.72);
   font-size: 16px;
 }
-.cardetail__title{
-  color: rgba(20,35,60,0.90);
+.cardetail__price{
+  margin-top: 12px;
+  color: #2a5bd7;
   font-weight: 750;
-  font-size: 16px;
+  font-size: 22px;
+  letter-spacing: .2px;
 }
 .cardetail-meta-ico{
   width: 18px;
