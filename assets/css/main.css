@@ -70,6 +70,11 @@ a{ color: inherit; }
   padding-top: 14px;
 }
 
+.ssection--carback + .section--footer{
+  border-top: 1px solid rgba(255, 180, 200, 0.25);
+  padding-top: 30px;
+}
+
 /* 1) hero */
 .hero{
   height: 100%;
@@ -418,7 +423,8 @@ a{ color: inherit; }
   background: rgba(255, 240, 245, 0.55); /* soft rose */
   border: 1px solid rgba(255, 180, 200, 0.25);
   color: rgba(20, 35, 60, 0.85);
-  font-weight: 750;
+  font-weight: 300;
+  font-size: 16px;
   border-radius: 14px;
   display: flex;
   align-items: center;
@@ -430,13 +436,13 @@ a{ color: inherit; }
 }
 .action-btn:hover{ background: rgba(255, 210, 225, 0.75); /* stronger rose glow */ }
 .action-ico{
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
   display: inline-flex;
 }
 .action-ico svg{
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
 }
 
 .copyright{
@@ -558,7 +564,6 @@ a{ color: inherit; }
 }
 .tag-pill{
   font-size: 16px;
-  font-weight: 750;
   color: rgba(20,35,60,0.80);
   background: rgba(255,210,225,0.35);
   border: 1px solid rgba(255,180,200,0.25);
