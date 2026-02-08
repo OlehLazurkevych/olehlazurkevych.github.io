@@ -55,7 +55,7 @@ a{ color: inherit; }
 /* fixed-height sections */
 .section--hero{ height: 150px; }
 .section--sort{ height: 58px; }
-.section--footer{ height: 190px; }
+.section--footer{ height: 120px; }
 
 .section{
   background: transparent;

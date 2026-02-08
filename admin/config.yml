@@ -26,22 +26,32 @@ collections:
     format: "frontmatter"
     fields:
       - { label: "Layout", name: "layout", widget: "hidden", default: "car" }
-      - { label: "Title", name: "title", widget: "string" }
-      - { label: "Price (USD)", name: "price_usd", widget: "number", required: false }
-      - { label: "Year", name: "year", widget: "number", required: false }
-      - { label: "Engine", name: "engine", widget: "string", required: false }
-      - { label: "Drive", name: "drive", widget: "string", required: false }
-      - { label: "Under deposit", name: "under_deposit", widget: "boolean", default: false, required: false }
-      - { label: "On site", name: "on_site", widget: "boolean", default: true, required: true }
+      - { label: "Дата публікації", name: "created_at", widget: "datetime", default: "{{now}}" }
+      - { label: "Заголовок", name: "title", widget: "string", hint: "Наприклад: Land Rover Range Rover HSE" }
+      - { label: "Вартість (USD)", name: "price_usd", widget: "number", required: false, hint: "Вартість вказати як ціле число без символів" }
+      - { label: "Рік", name: "year", widget: "number", required: false }
+      - { label: "Рік/Місяць", name: "alt_year", widget: "string", required: false, hint: "Альтернатива до поля Рік. Рік також бажано вказати." }
+      - { label: "Двигун", name: "engine", widget: "string", required: false }
+      - label: "Привід"
+        name: "drive"
+        widget: "select"
+        required: false
+        options:
+          - { label: "Повний привід", value: "Повний привід" }
+          - { label: "Передній привід",  value: "Передній привід" }
+          - { label: "Задній привід",  value: "Задній привід" }
+      - { label: "Під завдатком", name: "under_deposit", widget: "boolean", default: false, required: false }
+      - { label: "На площадці", name: "on_site", widget: "boolean", default: true }
       # multi-photo list (any amount)
-      - label: "Photos"
+      - label: "Фотографії"
         name: "photos"
         widget: "list"
         required: false
         field:
-          label: "Photo"
+          label: "Фото"
           name: "photo"
           widget: "image"
           media_folder: "/assets/uploads/cars"
           public_folder: "/assets/uploads/cars"
-      - { label: "Body", name: "body", widget: "markdown", required: false }
+      - { label: "Опис", name: "body", widget: "markdown", required: false }
+      - { label: "Відео посилання", name: "video_url", widget: "string", equired: false, hint: "https://www.instagram.com..." }
