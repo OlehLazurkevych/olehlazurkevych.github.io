@@ -56,6 +56,9 @@ collections:
       - { label: "Опис", name: "body", widget: "markdown", required: false }
       - { label: "Відео посилання", name: "video_url", widget: "string", equired: false, hint: "https://www.instagram.com..." }
     sortable_fields: ["created_at", "title", "price_usd", "year"]
+    view_groups:
+      - label: "На площадці"
+        field: "on_site"
     view_filters:
       - label: "Під завдатком"
         field: "under_deposit"
@@ -63,14 +66,4 @@ collections:
       - label: "На площадці"
         field: "on_site"
         pattern: true
-    summary: >
-      {{#unless on_site}}🚢 {{/unless}}
-      {{#if under_deposit}}💸 {{/if}}
-      {{created_at | date: 'YYYY-MM-DD'}}
-      {{title}} 
-      {{#if alt_year}}
-        {{alt_year}}
-      {{else}}
-        {{#if year}}{{year}}{{/if}}
-      {{/if}}
-      {{#if price_usd}} ${{price_usd}}{{/if}}
+    summary: {{under_deposit}} {{created_at | date('YYYY-MM-DD')}} {{title}} {{year}} ${{price_usd}}
