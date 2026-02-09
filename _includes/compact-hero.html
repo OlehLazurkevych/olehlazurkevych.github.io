@@ -1,0 +1,11 @@
+<section class="section section--carhead">
+    <div class="carhead">
+        <a class="carhead__brand" href="{{ '/' | relative_url }}" aria-label="AutoWelt home">
+            <img class="carhead__logo" src="{{ '/assets/img/logo.png' | relative_url }}" alt="AutoWelt logo">
+        </a>
+
+        <a class="carhead__phone" href="tel:{{ site.data.site.phone }}">
+            {% include human-phone.html phone=site.data.site.phone %}
+        </a>
+    </div>
+</section>

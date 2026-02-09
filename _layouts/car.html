@@ -6,17 +6,7 @@ layout: default
   <div class="container container--car">
 
     <!-- 1) Header: smaller logo left, phone right -->
-    <section class="section section--carhead">
-      <div class="carhead">
-        <a class="carhead__brand" href="{{ '/' | relative_url }}" aria-label="AutoWelt home">
-          <img class="carhead__logo" src="{{ '/assets/img/logo.png' | relative_url }}" alt="AutoWelt logo">
-        </a>
-
-        <a class="carhead__phone" href="tel:+380000000000">
-          +38 (000) 000-00-00
-        </a>
-      </div>
-    </section>
+    {% include compact-hero.html %}
 
     <!-- 2) Back button (JS will make it act like browser back when possible) -->
     <section class="section section--carback">

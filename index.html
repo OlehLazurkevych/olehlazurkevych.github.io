@@ -7,20 +7,7 @@ title: AutoWelt
   <div class="container">
 
     <!-- 0) Header: logo, description, phone -->
-    <section class="section section--hero">
-      <div class="hero">
-        <img class="hero__logo" src="{{ '/assets/img/logo.png' | relative_url }}" alt="Autowelt logo">
-        <div class="hero__text">
-          <p class="hero__desc">
-            AutoWelt — cars on sale. Honest descriptions, quick paperwork, and simple purchase process.
-          </p>
-
-          <a class="hero__phone" href="tel:+380000000000">
-            +38 (000) 000-00-00
-          </a>
-        </div>
-      </div>
-    </section>
+    {% include hero.html %}
 
     <!-- 1) Menu links -->
     <section class="section section--menu">

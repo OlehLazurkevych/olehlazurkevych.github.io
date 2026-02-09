@@ -1,0 +1,5 @@
+{% assign p = include.phone | remove: '+' %}
+
++{{ p | slice: 0,3 }}
+({{ p | slice: 3,2 }})
+{{ p | slice: 5,3 }}-{{ p | slice: 8,2 }}-{{ p | slice: 10,2 }}
