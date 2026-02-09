@@ -7,55 +7,16 @@ permalink: /where-to-find-us/
 <div class="page">
   <div class="container">
 
-    <!-- 0) Header: logo, description, phone -->
-    <section class="section section--hero">
-      <div class="hero">
-        <img class="hero__logo" src="{{ '/assets/img/logo.png' | relative_url }}" alt="Autowelt logo">
-        <div class="hero__text">
-          <p class="hero__desc">
-            Autowelt — cars on sale. Honest descriptions, quick paperwork, and simple purchase process.
-          </p>
+    <!-- 1) Hero: logo, description, phone -->
+    {% include hero.html %}
 
-          <a class="hero__phone" href="tel:+380000000000">
-            +38 (000) 000-00-00
-          </a>
-        </div>
-      </div>
-    </section>
+    <!-- 2) Menu links -->
+    {% include menu.html %}
 
-    <!-- 1) Menu links -->
-    <section class="section section--menu">
-      <nav class="menu" aria-label="Main menu">
+    <!-- 2) Map, Content -->
 
-        <a class="menu__link {% if page.url == '/' %}is-active{% endif %}"
-          href="{{ '/' | relative_url }}">
-          Автомобілі на місці
-          <span class="menu__u" aria-hidden="true"></span>
-        </a>
-
-        <a class="menu__link {% if page.url == '/cars-on-the-way/' %}is-active{% endif %}"
-          href="{{ '/cars-on-the-way/' | relative_url }}">
-          Автомобілі в дорозі
-          <span class="menu__u" aria-hidden="true"></span>
-        </a>
-
-        <a class="menu__link {% if page.url == '/where-to-find-us/' %}is-active{% endif %}"
-          href="{{ '/where-to-find-us/' | relative_url }}">
-          Де нас знайти
-          <span class="menu__u" aria-hidden="true"></span>
-        </a>
-
-      </nav>
-    </section>
-
-
-
-    <!-- Footer only -->
-    <section class="section section--footer">
-      <div class="copyright">
-        © {{ "now" | date: "%Y" }} Autowelt. All rights reserved.
-      </div>
-    </section>
+    <!-- 4) Copyright only -->
+    {% include compact-footer.html %}
 
   </div>
 </div>

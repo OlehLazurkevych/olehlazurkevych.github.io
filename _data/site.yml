@@ -1,2 +1,5 @@
 hero_description: "Autowelt — cars on sale. Honest descriptions, quick paperwork, and simple purchase process."
 phone: "+380000000000"
+footer_call_button_text: "Подзвонити"
+footer_map_button_text: "Ми на карті"
+footer_copyright_text: "AutoWelt. Всі права захищено."

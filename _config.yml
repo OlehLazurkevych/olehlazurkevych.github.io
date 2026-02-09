@@ -1,11 +1,11 @@
-title: "Auto Welt Demo"
+title: "AutoWelt"
 description: "Simple car listings with Jekyll + Decap CMS"
 
 default_car_image: /assets/img/car-placeholder.jpeg
 
 collections:
   cars:
-    output: true   # each car gets its own page under /cars/...
+    output: true # each car gets its own page under /cars/...
     permalink: /cars/:name/
 
 defaults:

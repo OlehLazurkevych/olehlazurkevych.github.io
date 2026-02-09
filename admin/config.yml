@@ -79,5 +79,5 @@ collections:
         label: "Сайт"
         name: "site"
         fields:
-          - { label: "Опис біля логотипу", name: "hero_description", widget: "string" }
+          - { label: "Опис біля логотипу", name: "hero_description", widget: "markdown" }
           - { label: "Номер телефону", name: "phone", widget: "string", hint: "+380000000000" }
