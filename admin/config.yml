@@ -84,3 +84,30 @@ collections:
           - { label: "Текст нижньої червоної кнопки: Подзвонити", name: "footer_call_button_text", widget: "string" }
           - { label: "Текст нижньої червоної кнопки: Мапа", name: "footer_map_button_text", widget: "string" }
           - { label: "Текст нижнього тексту захисту прав", name: "footer_copyright_text", widget: "string" }
+          # WHERE TO FIND US BLOCK
+          - label: "Сторінка: Де нас знайти"
+            name: "where_to_find_us"
+            widget: "object"
+            fields:
+              - { label: "Текст з інструкціями як доїхати", name: "directions_text", widget: "markdown" }
+              - { label: "Google maps embed URL", name: "map_embed_url", widget: "string", hint: "https://www.google.com/maps/embed?..." }
+              - { label: "Текст про бізнес та послуги", name: "value_text", widget: "markdown" }
+              # SOCIAL LINKS
+              - label: "Соцмережі"
+                name: "socials"
+                widget: "object"
+                fields:
+                  - { label: "Instagram", name: "instagram", widget: "string", required: false }
+                  - { label: "Telegram", name: "telegram", widget: "string", required: false }
+                  - { label: "TikTok", name: "tiktok", widget: "string", required: false }
+              # PHOTOS ARRAY
+              - label: "Фото майданчика"
+                name: "photos"
+                widget: "list"
+                required: false
+                field:
+                  label: "Фото"
+                  name: "photo"
+                  widget: "image"
+                  media_folder: "/assets/uploads/location"
+                  public_folder: "/assets/uploads/location"

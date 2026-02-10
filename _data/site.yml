@@ -8,3 +8,22 @@ phone: "+380000000000"
 footer_call_button_text: Подзвоніть нам
 footer_map_button_text: Ми на карті
 footer_copyright_text: AutoWelt. Всі права захищено.
+where_to_find_us:
+  directions_text: >
+    Ми знаходимось у Львові. Перед візитом — зателефонуйте, щоб ми підготували авто до огляду.
+
+  # Google Maps embed URL (best: paste the "Embed a map" link here)
+  map_embed_url: "https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d588.8024369009687!2d23.91664391039951!3d49.82206956477055!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sen!2sua!4v1770764369718!5m2!1sen!2sua"
+
+  value_text: >
+    AutoWelt — прозорий підбір та продаж авто. Перевірка, документи, консультація, супровід.
+
+  socials:
+    instagram: "https://instagram.com/yourprofile"
+    telegram: "https://t.me/yourchannel"
+    tiktok: "https://tiktok.com/@yourprofile"
+
+  photos:
+    - "https://autoin.ua/uploads/2/12284-img_2754_krupnyj.jpeg"
+    - "https://autoin.ua/uploads/2/12270-img_2739_krupnyj.jpeg"
+    - "https://autoin.ua/uploads/2/12280-img_2749_krupnyj.jpeg"

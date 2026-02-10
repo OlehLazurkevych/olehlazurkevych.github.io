@@ -785,7 +785,7 @@ a {
 }
 @media (hover: hover) and (pointer: fine){
   .video-pill:hover{
-    background: linear-gradient(180deg, rgba(20, 35, 60, 0.06), rgba(20, 35, 60, 0.1));
+    background: linear-gradient(180deg, rgba(20, 35, 60, 0), rgba(20, 35, 60, 0.06));
     border-color: rgba(20, 35, 60, 0.90);
     transform: translateY(-1px);
   }
@@ -804,4 +804,94 @@ a {
 
 .video-pill__text{
   letter-spacing: .2px;
+}
+
+/* Where to find us */
+.section--w2f{ padding: 8px 0; }
+
+.w2f-card{
+  border-radius: 18px;
+  padding: 14px;
+  background: rgba(255,255,255,0.55);
+  border: 1px solid rgba(120,170,220,0.18);
+  box-shadow: 0 10px 28px rgba(0,0,0,0.06);
+}
+
+.w2f-title{
+  margin: 0 0 8px;
+  font-size: 18px;
+  color: rgba(15,25,40,0.92);
+}
+
+.w2f-subtitle{
+  margin: 0 0 8px;
+  font-size: 16px;
+  color: rgba(15,25,40,0.90);
+}
+
+.w2f-text{
+  margin: 0;
+  color: rgba(20,35,60,0.72);
+  line-height: 1.5;
+}
+
+.w2f-mapwrap{
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(120,170,220,0.18);
+}
+
+.w2f-map{
+  width: 100%;
+  height: 320px;
+  display: block;
+  border: 0;
+}
+
+@media (max-width: 420px){
+  .w2f-map{ height: 260px; }
+}
+
+/* Social pills (darker theme) */
+.w2f-socials{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.social-pill{
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 14px;
+  border-radius: 999px;
+  text-decoration: none;
+
+  background: linear-gradient(180deg, #2c2c32, #1a1a1f);
+  color: #fff;
+
+  border: 1px solid rgba(255,255,255,0.15);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+  transition: all .18s ease;
+}
+
+.social-pill:hover{
+  background: linear-gradient(180deg, #3a3a42, #24242a);
+  border-color: rgba(255,255,255,0.35);
+  transform: translateY(-1px);
+}
+
+/* Photos */
+.w2f-photos{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.w2f-photo{
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 16px;
+  background: rgba(255,255,255,0.65);
+  border: 1px solid rgba(120,170,220,0.18);
 }
