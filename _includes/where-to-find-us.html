@@ -2,46 +2,44 @@
 
 <!-- Section 1: Directions text -->
 <section class="section section--w2f section--w2f-directions">
-    <div class="w2f-card">
-        <h2 class="w2f-title">Where to find us</h2>
+    <div>
+        <h2 class="w2f-title">{{ w.directions_title }}</h2> 
         <p class="w2f-text">{{ w.directions_text }}</p>
     </div>
 </section>
 
 <!-- Section 2: Google map embed -->
 <section class="section section--w2f section--w2f-map">
-    <div class="w2f-card">
-        <div class="w2f-mapwrap">
-            <iframe class="w2f-map" src="{{ w.map_embed_url }}" loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade" allowfullscreen>
-            </iframe>
-        </div>
+    <div class="w2f-mapwrap">
+        <iframe class="w2f-map" src="{{ w.map_embed_url }}" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade" allowfullscreen>
+        </iframe>
     </div>
 </section>
 
 <!-- Section 3: Value text -->
 <section class="section section--w2f section--w2f-value">
-    <div class="w2f-card">
-        <h3 class="w2f-subtitle">Service</h3>
+    <div>
+        <h3 class="w2f-subtitle">{{ w.value_title }}</h3> 
         <p class="w2f-text">{{ w.value_text }}</p>
     </div>
 </section>
 
 <!-- Section 4: Social links -->
 <section class="section section--w2f section--w2f-socials">
-    <div class="w2f-card">
-        <h3 class="w2f-subtitle">Socials</h3>
+    <div>
+        <h3 class="w2f-subtitle">{{ w.socials_title }}</h3> 
         <div class="w2f-socials">
             {% if w.socials.instagram %}
                 <a class="social-pill" href="{{ w.socials.instagram }}" target="_blank"
                     rel="noopener noreferrer">Instagram</a>
             {% endif %}
+            {% if w.socials.tiktok %}
+                <a class="social-pill" href="{{ w.socials.tiktok }}" target="_blank" rel="noopener noreferrer">TikTok</a>
+            {% endif %}
             {% if w.socials.telegram %}
                 <a class="social-pill" href="{{ w.socials.telegram }}" target="_blank"
                     rel="noopener noreferrer">Telegram</a>
-            {% endif %}
-            {% if w.socials.tiktok %}
-                <a class="social-pill" href="{{ w.socials.tiktok }}" target="_blank" rel="noopener noreferrer">TikTok</a>
             {% endif %}
         </div>
     </div>
@@ -50,14 +48,11 @@
 <!-- Section 5: Photos array -->
 {% if w.photos and w.photos.size > 0 %}
     <section class="section section--w2f section--w2f-photos">
-        <div class="w2f-card">
-            <h3 class="w2f-subtitle">Photos</h3>
-            <div class="w2f-photos">
-                {% for img in w.photos %}
-                    <img class="w2f-photo" src="{{ img | relative_url }}" alt="AutoWelt location photo {{ forloop.index }}"
-                        loading="lazy">
-                {% endfor %}
-            </div>
+        <div class="w2f-photos">
+            {% for img in w.photos %}
+                <img class="w2f-photo" src="{{ img | relative_url }}" alt="Фото автомайданчика AutoWelt у місті Львів №{{ forloop.index }}"
+                    loading="lazy">
+            {% endfor %}
         </div>
     </section>
 {% endif %}

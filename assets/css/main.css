@@ -736,34 +736,6 @@ a {
 }
 
 /* Video button */
-/*
-.video-pill{
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-
-  padding: 10px 16px;
-  border-radius: 999px;
-
-  background: linear-gradient(180deg, #2c2c32, #1a1a1f);
-  color: #fff;
-  text-decoration: none;
-
-  font-weight: 500;
-  font-size: 14px;
-
-  border: 1px solid rgba(255,255,255,0.15);
-  box-shadow: 0 6px 18px rgba(0,0,0,0.25);
-
-  transition: all .18s ease;
-}
-
-.video-pill:hover{
-  background: linear-gradient(180deg, #3a3a42, #24242a);
-  border-color: rgba(255,255,255,0.35);
-  transform: translateY(-1px);
-}
-*/
 .video-pill{
   display: inline-flex;
   align-items: center;
@@ -809,14 +781,6 @@ a {
 /* Where to find us */
 .section--w2f{ padding: 8px 0; }
 
-.w2f-card{
-  border-radius: 18px;
-  padding: 14px;
-  background: rgba(255,255,255,0.55);
-  border: 1px solid rgba(120,170,220,0.18);
-  box-shadow: 0 10px 28px rgba(0,0,0,0.06);
-}
-
 .w2f-title{
   margin: 0 0 8px;
   font-size: 18px;
@@ -855,6 +819,7 @@ a {
 /* Social pills (darker theme) */
 .w2f-socials{
   display: flex;
+  align-items: center;
   flex-wrap: wrap;
   gap: 10px;
 }
@@ -862,22 +827,29 @@ a {
 .social-pill{
   display: inline-flex;
   align-items: center;
-  padding: 10px 14px;
+  gap: 8px;
+  width: 120px;
+
+  padding: 10px 16px;
   border-radius: 999px;
+
+  background: none;
+  color: rgba(20, 35, 60, 0.90);
   text-decoration: none;
 
-  background: linear-gradient(180deg, #2c2c32, #1a1a1f);
-  color: #fff;
+  font-weight: 500;
+  font-size: 14px;
 
-  border: 1px solid rgba(255,255,255,0.15);
-  box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+  border: 1px solid rgba(20, 35, 60, 0.90);
+
   transition: all .18s ease;
 }
-
-.social-pill:hover{
-  background: linear-gradient(180deg, #3a3a42, #24242a);
-  border-color: rgba(255,255,255,0.35);
-  transform: translateY(-1px);
+@media (hover: hover) and (pointer: fine){
+  .social-pill:hover{
+    background: linear-gradient(180deg, rgba(20, 35, 60, 0), rgba(20, 35, 60, 0.06));
+    border-color: rgba(20, 35, 60, 0.90);
+    transform: translateY(-1px);
+  }
 }
 
 /* Photos */
