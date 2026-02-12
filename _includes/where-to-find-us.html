@@ -4,7 +4,7 @@
 <section class="section section--w2f section--w2f-directions">
     <div>
         <h2 class="w2f-title">{{ w.directions_title }}</h2>
-        <p class="w2f-text">{{ w.directions_text }}</p>
+        <div class="w2f-text">{{ w.directions_text | markdownify }}</div>
     </div>
 </section>
 
@@ -21,7 +21,7 @@
 <section class="section section--w2f section--w2f-value">
     <div>
         <h2 class="w2f-subtitle">{{ w.value_title }}</h2>
-        <p class="w2f-text">{{ w.value_text }}</p>
+        <div class="w2f-text">{{ w.value_text | markdownify }}</div>
     </div>
 </section>
 

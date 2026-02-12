@@ -2,9 +2,9 @@
     <div class="hero">
         <img class="hero__logo" src="{{ '/assets/img/logo.png' | relative_url }}" alt="AutoWelt logo">
         <div class="hero__text">
-            <p class="hero__desc">
-                {{ site.data.site.hero_description }}
-            </p>
+            <div class="hero__desc">
+                {{ site.data.site.hero_description | markdownify }}
+            </div>
             <a class="hero__phone" href="tel:{{ site.data.site.phone }}">
                 {% include human-phone.html phone=site.data.site.phone %}
             </a>

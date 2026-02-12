@@ -91,7 +91,7 @@ layout: default
         <!-- Description -->
         {% if content and content != "" %}
           <div class="cardetail__desc">
-            {{ content }}
+            {{ content | markdownify }}
           </div>
         {% endif %}
 

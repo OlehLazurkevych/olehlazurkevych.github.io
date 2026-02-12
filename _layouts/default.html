@@ -1,17 +1,84 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uk">
 
 <head>
   <meta charset="utf-8">
-  <title>{{ page.title | default: site.title }}</title>
+  <meta name="geo.region" content="UA-LV">
+  <meta name="geo.placename" content="Lviv">
+  <title>
+    {%- if page.title -%}
+      {{ page.title | strip_newlines | escape }}
+    {%- elsif page.layout == "car" -%}
+      {{ page.title | strip_newlines | escape }}
+      {%- if page.release_year and page.release_year != "" -%} {{ page.release_year }}{%- endif -%}
+      — купити у Львові | AutoWelt
+    {%- else -%}
+      AutoWelt — продаж авто у Львові
+    {%- endif -%}
+  </title>
+  <meta name="description" content="{%- if page.seo_description -%}
+  {{ page.seo_description | strip_newlines | escape }}
+  {%- elsif page.layout == "car" -%}
+  {{ page.title | strip_newlines | escape }}
+  {%- if page.release_year and page.release_year != "" -%} {{ page.release_year | strip_newlines | escape }}{%- endif -%} у Львові.
+  {%- if page.engine and page.engine != "" -%} Двигун: {{ page.engine | strip_newlines | escape }}.{%- endif -%}
+  {%- if page.drive and page.drive != "" -%} Привід: {{ page.drive | strip_newlines | escape }}.{%- endif -%}
+  Перевірене авто. AutoWelt Львів.
+  {%- else -%}
+  AutoWelt — продаж авто у Львові. Актуальні пропозиції, фото та контакти.
+  {%- endif -%}">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  {%- if page.layout == "car" -%}
+    {%- assign cover = page.photos[0].photo | default: page.photos[0] | default: site.default_car_image -%}
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Car",
+        "name": {{ page.title | jsonify }},
+        "image": [{{ cover | absolute_url | jsonify }}],
+        "vehicleModelDate": {{ page.release_year | default: "" | jsonify }},
+        "description": {{ page.title | append: " у Львові. AutoWelt Львів." | strip_newlines | jsonify }},
+        "offers": {
+          "@type": "Offer",
+          "url": {{ page.url | absolute_url | jsonify }},
+          "priceCurrency": "USD",
+          "price": {{ page.price_usd | default: "" | jsonify }},
+          "availability": "{% if page.on_site == false %}https://schema.org/PreOrder{% else %}https://schema.org/InStock{% endif %}",
+          "seller": {
+            "@type": "Organization",
+            "name": "AutoWelt",
+            "areaServed": "Lviv, Ukraine"
+          }
+        }
+      }
+    </script>
+  {%- endif -%}
+  <script type="application/ld+json">
+    {
+      "@context":"https://schema.org",
+      "@type":"Organization",
+      "name":"AutoWelt",
+      "url": {{ "/" | absolute_url | jsonify }},
+      "telephone": {{ site.data.site.phone | default: "" | jsonify }},
+      "areaServed":"Lviv, Ukraine"
+    }
+  </script>
+  <script type="application/ld+json">
+    {
+      "@context":"https://schema.org",
+      "@type":"WebSite",
+      "name":"AutoWelt",
+      "url": {{ "/" | absolute_url | jsonify }}
+    }
+  </script>
+  <link rel="canonical" href="{{ page.url | absolute_url }}">
   <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
   <script src="{{ '/assets/js/sort.js' | relative_url }}" defer></script>
   <script src="{{ '/assets/js/back.js' | relative_url }}" defer></script>
 </head>
 
-<body>
-  {{ content }}
-</body>
+  <body>
+    {{ content }}
+  </body>
 
 </html>

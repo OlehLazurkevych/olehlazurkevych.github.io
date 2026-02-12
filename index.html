@@ -1,6 +1,7 @@
 ---
 layout: default
-title: AutoWelt
+title: AutoWelt — продаж авто у Львові
+seo_description: Продаж автомобілів у Львові. Авто з Америки, Європи в наявності та під замовлення (в дорозі). Актуальні ціни, фото та відеоогляди.
 ---
 
 <div class="page">
@@ -19,7 +20,13 @@ title: AutoWelt
     {% assign cars_sorted = site.cars | where: "on_site", true | sort: "created_at" | reverse %}
     {% include cars-section.html cars=cars_sorted %}
 
-    <!-- 5) Footer actions + copyright -->
+    <!-- 5) About company -->
+    <section class="footer-about-text">
+      {{ site.data.site.index-footer-about-text | markdownify }}
+      <a href="{{ '/auto-lviv/' | relative_url }}" class="footer-about-link">Авто у Львові</a>
+    </section>
+
+    <!-- 6) Footer actions + copyright -->
     {% include footer.html %}
 
   </div>

@@ -15,5 +15,11 @@ defaults:
     values:
       layout: car
 
+plugins:
+  - jekyll-sitemap # /sitemap.xml for search engines
+
+url: "https://olehlazurkevych.github.io"
+
+
 # Optional: set a baseurl if this is a project site (not username.github.io)
 # baseurl: "/carsales-jekyll-website"
