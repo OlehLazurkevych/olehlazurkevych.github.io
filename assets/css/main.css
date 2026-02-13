@@ -523,7 +523,7 @@ a {
 }
 
 .copyright {
-  margin-top: 20px;
+  margin-top: 10px;
   color: rgba(20, 35, 60, 0.48);
   /* light muted gray-blue */
   font-size: 12px;
@@ -870,8 +870,7 @@ a {
 
 /* footer-about-text */
 .footer-about-text {
-  margin-top: 20px;
-  margin: 0 auto; /* centers the block */
+  margin: 20px auto 0 auto;
   text-align: left;
   font-size: 13px;
   opacity:.5;
