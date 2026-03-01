@@ -1,0 +1,88 @@
+name: Sync cars from GDrive to R2 and generate md
+
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    env:
+      #R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+      #R2_BUCKET: ${{ secrets.R2_BUCKET }}
+      #R2_PUBLIC_BASE_URL: ${{ secrets.R2_PUBLIC_BASE_URL }}
+      #GDRIVE_FOLDER_ID: #${{ secrets.GDRIVE_FOLDER_ID }}
+
+      #AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+      #AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+      #AWS_DEFAULT_REGION: auto
+      #AWS_EC2_METADATA_DISABLED: "true"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - id: auth
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+
+      - name: Install deps
+        run: |
+          pip install google-api-python-client google-auth
+
+      - name: Test Drive access (list files)
+        env:
+          GDRIVE_FOLDER_ID: ${{ secrets.GDRIVE_FOLDER_ID }}
+        run: |
+          python - <<'PY'
+          from googleapiclient.discovery import build
+          from google.auth import default
+
+          creds, _ = default(scopes=["https://www.googleapis.com/auth/drive.readonly"])
+          drive = build("drive", "v3", credentials=creds)
+
+          folder_id = __import__("os").environ["GDRIVE_FOLDER_ID"]
+          q = f"'{folder_id}' in parents and trashed = false"
+          res = drive.files().list(q=q, fields="files(id,name,mimeType)").execute()
+          for f in res.get("files", []):
+              print(f["name"], f["mimeType"], f["id"])
+          PY
+
+      #- name: Setup Python
+      #  uses: actions/setup-python@v5
+      #  with:
+      #    python-version: "3.11"
+
+      #- name: Install tools (awscli, rclone)
+      #  run: |
+      #    python -m pip install --upgrade pip
+      #    pip install awscli
+      #    curl -fsSL https://rclone.org/install.sh | sudo bash
+
+      #- name: Write Google SA key
+      #  run: |
+      #    mkdir -p .secrets
+      #    echo '${{ secrets.GDRIVE_SA_JSON }}' > .secrets/gdrive-sa.json
+
+      #- name: Run sync script
+      #  run: |
+      #    python scripts/sync_gdrive_to_r2_and_generate_md.py
+
+      #- name: Commit and push changes (if any)
+      #  run: |
+      #    if git status --porcelain | grep -q .; then
+      #      git config user.name "github-actions[bot]"
+      #      git config user.email "github-actions[bot]@users.noreply.github.com"
+      #      git add _cars/
+      #      git commit -m "chore: add new car md files"
+      #      git push
+      #    else
+      #      echo "No changes to commit."
+      #    fi
