@@ -5,6 +5,9 @@ Feature:
 + sort to default
 + Google and AI tags [SEO]
 + Google analytics [SEO]
+- hidden button
+- sold tag
+- fix empty fields
 
 Style:
 + Hero and car description markdown - стиль тексту як на адмінці
