@@ -203,6 +203,8 @@ def list_r2_car_folders() -> list[str]:
         "--prefix", "cars/",
         "--delimiter", "/",
     ])
+    print(res.stdout)
+    print(res.stderr)
     data = json.loads(res.stdout or "{}")
     prefixes = data.get("CommonPrefixes", []) or []
     # prefix looks like "cars/BMW5 tdi2.0 supreme/"
