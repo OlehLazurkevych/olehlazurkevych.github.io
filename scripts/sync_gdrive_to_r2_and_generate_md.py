@@ -3,22 +3,165 @@ import re
 import json
 import shutil
 import subprocess
+from typing import Dict, List, Optional
 from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import quote
+from googleapiclient.discovery import build
+from googleapiclient.http import MediaIoBaseDownload
+from google.auth import default
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 CARS_MD_DIR = REPO_ROOT / "_cars"
-SECRETS_DIR = REPO_ROOT / ".secrets"
 WORK_DIR = REPO_ROOT / ".work"
-#GDRIVE_SA_PATH = SECRETS_DIR / "gdrive-sa.json"
 
-#R2_ACCOUNT_ID = os.environ["R2_ACCOUNT_ID"]
-#R2_BUCKET = os.environ["R2_BUCKET"]
-#R2_PUBLIC_BASE_URL = os.environ["R2_PUBLIC_BASE_URL"].rstrip("/")
+R2_ACCOUNT_ID = os.environ["R2_ACCOUNT_ID"]
+R2_BUCKET = os.environ["R2_BUCKET"]
+R2_PUBLIC_BASE_URL = os.environ["R2_PUBLIC_BASE_URL"].rstrip("/")
 GDRIVE_FOLDER_ID = os.environ["GDRIVE_FOLDER_ID"]
 
-#R2_ENDPOINT = f"https://{R2_ACCOUNT_ID}.r2.cloudflarestorage.com"
+R2_ENDPOINT = f"https://{R2_ACCOUNT_ID}.r2.cloudflarestorage.com"
+
+# --------- Google Drive: internal helpers (used by the 3 functions) ---------
+
+def _list_children(
+    drive,
+    parent_id: str,
+    *,
+    only_folders: bool = False,
+    only_files: bool = False,
+) -> List[Dict]:
+    """
+    List direct children of a Drive folder (handles pagination).
+    Returns list of dicts with keys like: id, name, mimeType, size
+    """
+    if only_folders and only_files:
+        raise ValueError("only_folders and only_files can't both be True")
+
+    q = [f"'{parent_id}' in parents", "trashed=false"]
+    if only_folders:
+        q.append("mimeType='application/vnd.google-apps.folder'")
+    if only_files:
+        q.append("mimeType!='application/vnd.google-apps.folder'")
+    query = " and ".join(q)
+
+    fields = "nextPageToken, files(id, name, mimeType, size)"
+    out: List[Dict] = []
+    page_token: Optional[str] = None
+
+    while True:
+        resp = (
+            drive.files()
+            .list(
+                q=query,
+                fields=fields,
+                pageSize=1000,
+                pageToken=page_token,
+                supportsAllDrives=True,
+                includeItemsFromAllDrives=True,
+            )
+            .execute()
+        )
+        out.extend(resp.get("files", []) or [])
+        page_token = resp.get("nextPageToken")
+        if not page_token:
+            break
+
+    return out
+
+def _find_child_folder_id(drive, parent_id: str, child_name: str) -> Optional[str]:
+    """
+    Find a direct child folder with exact name under parent_id.
+    """
+    for item in _list_children(drive, parent_id, only_folders=True):
+        if item.get("name") == child_name:
+            return item.get("id")
+    return None
+
+def _download_file(drive, file_id: str, dest_path: Path) -> None:
+    """
+    Download a single Drive file (by id) to dest_path.
+    """
+    dest_path.parent.mkdir(parents=True, exist_ok=True)
+    request = drive.files().get_media(fileId=file_id, supportsAllDrives=True)
+
+    with dest_path.open("wb") as fh:
+        downloader = MediaIoBaseDownload(fh, request, chunksize=8 * 1024 * 1024)
+        done = False
+        while not done:
+            _, done = downloader.next_chunk()
+
+# --------- Google Drive functions ---------
+
+def list_gdrive_car_folders(drive, gdrive_root_folder_id: str) -> List[str]:
+    """
+    Expects structure:
+      <gdrive_root_folder_id>/
+        cars/
+          <car-folder-1>/
+          <car-folder-2>/
+    Returns sorted list of car folder names under cars/.
+    """
+    cars_id = _find_child_folder_id(drive, gdrive_root_folder_id, "cars")
+    if not cars_id:
+        raise RuntimeError("Could not find a 'cars' folder under the provided root folder ID.")
+
+    car_folders = _list_children(drive, cars_id, only_folders=True)
+    return sorted([f["name"] for f in car_folders if f.get("name")])
+
+
+def list_gdrive_photos_for_folder(
+    drive,
+    gdrive_root_folder_id: str,
+    car_folder_name: str,
+) -> List[str]:
+    """
+    Lists file names inside:
+      <root>/cars/<car_folder_name>/
+    Returns sorted list of filenames (no recursion).
+    """
+    cars_id = _find_child_folder_id(drive, gdrive_root_folder_id, "cars")
+    if not cars_id:
+        raise RuntimeError("Could not find a 'cars' folder under the provided root folder ID.")
+
+    car_folder_id = _find_child_folder_id(drive, cars_id, car_folder_name)
+    if not car_folder_id:
+        raise RuntimeError(f"Could not find car folder '{car_folder_name}' under 'cars/'.")
+
+    files = _list_children(drive, car_folder_id, only_files=True)
+    return sorted([f["name"] for f in files if f.get("name")])
+
+
+def copy_gdrive_folder_local(
+    drive,
+    gdrive_root_folder_id: str,
+    car_folder_name: str,
+    dst_dir: Path,
+) -> None:
+    """
+    Downloads the contents of:
+      <root>/cars/<car_folder_name>/
+    into:
+      dst_dir
+
+    Recurses into subfolders if they exist.
+    """
+    cars_id = _find_child_folder_id(drive, gdrive_root_folder_id, "cars")
+    if not cars_id:
+        raise RuntimeError("Could not find a 'cars' folder under the provided root folder ID.")
+
+    car_folder_id = _find_child_folder_id(drive, cars_id, car_folder_name)
+    if not car_folder_id:
+        raise RuntimeError(f"Could not find car folder '{car_folder_name}' under 'cars/'.")
+
+    target_root = dst_dir
+    target_root.mkdir(parents=True, exist_ok=True)
+
+    # Download files in this folder
+    for f in _list_children(drive, car_folder_id, only_files=True):
+        _download_file(drive, f["id"], target_root / f["name"])
+
+# --------- End. Google Drive functions ---------
 
 def run(cmd: list[str], *, check=True, capture=True, text=True, env=None, cwd=None) -> subprocess.CompletedProcess:
     print(">>", " ".join(cmd))
@@ -42,50 +185,6 @@ def slugify_for_filename(name: str) -> str:
 def ensure_dirs():
     CARS_MD_DIR.mkdir(parents=True, exist_ok=True)
     WORK_DIR.mkdir(parents=True, exist_ok=True)
-
-def write_rclone_config() -> Path:
-    """
-    Create a minimal rclone config using Google Drive service account.
-    We'll use the Drive API via service account; folder must be shared with SA email.
-    """
-    cfg_path = WORK_DIR / "rclone.conf"
-    cfg = f"""
-[gdrive]
-type = drive
-scope = drive.readonly
-service_account_file = {GDRIVE_SA_PATH.as_posix()}
-    """.strip() + "\n"
-    cfg_path.write_text(cfg, encoding="utf-8")
-    return cfg_path
-
-def list_gdrive_car_folders(rclone_conf: Path) -> list[str]:
-    """
-    Expects structure:
-    <GDRIVE_FOLDER_ID>/
-      cars/
-        'BMW5 tdi2.0 supreme'/
-          Photo1.JPG
-    We list folders under cars/.
-    """
-    # Find the "cars" folder under the provided root folder
-    # 1) list children of root
-    res = run([
-        "rclone", "--config", rclone_conf.as_posix(),
-        "lsjson", "--dirs-only", f"gdrive:/{GDRIVE_FOLDER_ID}"
-    ])
-    items = json.loads(res.stdout or "[]")
-    cars_dir = next((x for x in items if x.get("Name") == "cars" and x.get("IsDir")), None)
-    if not cars_dir:
-        raise RuntimeError("Could not find a 'cars' directory under the provided GDRIVE_FOLDER_ID.")
-
-    # 2) list folders under cars
-    res2 = run([
-        "rclone", "--config", rclone_conf.as_posix(),
-        "lsjson", "--dirs-only", f"gdrive:/{GDRIVE_FOLDER_ID}/cars"
-    ])
-    cars = json.loads(res2.stdout or "[]")
-    names = sorted([x["Name"] for x in cars if x.get("IsDir")])
-    return names
 
 def list_r2_car_folders() -> list[str]:
     """
@@ -112,35 +211,6 @@ def list_r2_car_folders() -> list[str]:
                 names.append(rest)
     return sorted(set(names))
 
-def list_gdrive_photos_for_folder(rclone_conf: Path, folder_name: str) -> list[str]:
-    # list files directly inside that folder (no recursion)
-    res = run([
-        "rclone", "--config", rclone_conf.as_posix(),
-        "lsjson", f"gdrive:/{GDRIVE_FOLDER_ID}/cars/{folder_name}"
-    ])
-    items = json.loads(res.stdout or "[]")
-    files = []
-    for x in items:
-        if x.get("IsDir"):
-            continue
-        n = x.get("Name", "")
-        if n:
-            files.append(n)
-    return sorted(files)
-
-def copy_gdrive_folder_local(rclone_conf: Path, folder_name: str, dst: Path):
-    # copies folder contents
-    dst.mkdir(parents=True, exist_ok=True)
-    run([
-        "rclone", "--config", rclone_conf.as_posix(),
-        "copy",
-        f"gdrive:/{GDRIVE_FOLDER_ID}/cars/{folder_name}",
-        dst.as_posix(),
-        "--checksum",
-        "--transfers", "8",
-        "--checkers", "16",
-    ])
-
 def sync_local_to_r2(local_folder: Path, folder_name: str):
     # Upload to s3://bucket/cars/<folder_name>/
     run([
@@ -157,8 +227,8 @@ def make_photo_url(folder_name: str, filename: str) -> str:
 
 def create_md(folder_name: str, photo_files: list[str]) -> Path:
     now = datetime.now(timezone.utc)
-    # Example datetime in filename: 20260301T193010Z
-    dt = now.strftime("%Y%m%dT%H%M%SZ")
+    # Example datetime in filename: 20260301193010
+    dt = now.strftime("%Y%m%d%H%M%S")
     slug = slugify_for_filename(folder_name)
     md_path = CARS_MD_DIR / f"{slug}-{dt}.md"
 
@@ -177,10 +247,10 @@ def create_md(folder_name: str, photo_files: list[str]) -> Path:
     return md_path
 
 def main():
-    ensure_dirs()
+    creds, _ = default(scopes=["https://www.googleapis.com/auth/drive.readonly"])
+    drive = build("drive", "v3", credentials=creds, cache_discovery=False)
 
-    if not GDRIVE_SA_PATH.exists():
-        raise RuntimeError("Missing .secrets/gdrive-sa.json (did the workflow step write it?).")
+    ensure_dirs()
 
     # Clean working folder each run
     if WORK_DIR.exists():
@@ -191,9 +261,10 @@ def main():
                 shutil.rmtree(p, ignore_errors=True)
     WORK_DIR.mkdir(parents=True, exist_ok=True)
 
-    rclone_conf = write_rclone_config()
+    print(f"CARS_MD_DIR: {CARS_MD_DIR}")
+    print(f"WORK_DIR: {WORK_DIR}")
 
-    gdrive_folders = list_gdrive_car_folders(rclone_conf)
+    gdrive_folders = list_gdrive_car_folders(drive, GDRIVE_FOLDER_ID)
     r2_folders = list_r2_car_folders()
 
     gdrive_set = set(gdrive_folders)
@@ -212,10 +283,11 @@ def main():
     # 3) generate md with URLs
     for folder_name in missing_on_r2:
         local_dst = WORK_DIR / "cars" / folder_name
-        copy_gdrive_folder_local(rclone_conf, folder_name, local_dst)
+        copy_gdrive_folder_local(drive, GDRIVE_FOLDER_ID, folder_name, local_dst)
         sync_local_to_r2(local_dst, folder_name)
 
-        photo_files = list_gdrive_photos_for_folder(rclone_conf, folder_name)
+        photo_files = list_gdrive_photos_for_folder(drive, GDRIVE_FOLDER_ID, folder_name)
+        print(f"photo_files in {folder_name}:", md.relative_to(REPO_ROOT))
         md = create_md(folder_name, photo_files)
         print("Created:", md.relative_to(REPO_ROOT))
 
