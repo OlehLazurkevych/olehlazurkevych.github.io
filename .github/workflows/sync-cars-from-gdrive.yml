@@ -34,9 +34,15 @@ jobs:
       #    workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
       #    service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
 
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
       - name: Install python deps
         run: |
-          pip install google-api-python-client google-auth google-auth-httplib2 google-auth-oauthlib
+          python -m pip install --upgrade pip
+          python -m pip install google-api-python-client google-auth google-auth-httplib2 google-auth-oauthlib
 
       #- name: Test Drive access (list files)
       #  env:
@@ -53,11 +59,6 @@ jobs:
       #    for f in res.get("files", []):
       #        print(f["name"], f["mimeType"], f["id"])
       #    PY
-
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
 
       - name: Run sync script
         run: |
