@@ -197,6 +197,7 @@ def list_r2_car_folders() -> list[str]:
         "--bucket", R2_BUCKET,
         "--prefix", "cars/",
         "--delimiter", "/",
+        "--debug"
     ])
     data = json.loads(res.stdout or "{}")
     prefixes = data.get("CommonPrefixes", []) or []
