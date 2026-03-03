@@ -237,10 +237,11 @@ def create_md(folder_name: str, photo_files: list[str]) -> Path:
     # YAML front matter (simple + compatible with Jekyll/Eleventy)
     lines = []
     lines.append("---")
-    lines.append(f'title: "{folder_name.replace(chr(34), r"\"")}"')
+    safe_title = folder_name.replace('"', '\\"')
+    lines.append(f'title: {safe_title}')
     lines.append("photos:")
     for u in urls:
-        lines.append(f'  - "{u}"')
+        lines.append(f'  - {u}')
     lines.append("---")
     lines.append("")  # content body empty; add later if you want
     md_path.write_text("\n".join(lines), encoding="utf-8")
