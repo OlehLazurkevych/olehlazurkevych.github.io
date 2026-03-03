@@ -192,12 +192,12 @@ def list_r2_car_folders() -> list[str]:
     We use aws s3api list-objects-v2 with Delimiter='/'
     """
     res = run([
-        "aws", "--endpoint-url", R2_ENDPOINT,
+        "aws", "--region", "auto"
+        "--endpoint-url", R2_ENDPOINT,
         "s3api", "list-objects-v2",
         "--bucket", R2_BUCKET,
         "--prefix", "cars/",
         "--delimiter", "/",
-        "--debug"
     ])
     data = json.loads(res.stdout or "{}")
     prefixes = data.get("CommonPrefixes", []) or []
