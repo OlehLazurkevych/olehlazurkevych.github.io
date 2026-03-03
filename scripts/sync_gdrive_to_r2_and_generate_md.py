@@ -195,16 +195,20 @@ def list_r2_car_folders() -> list[str]:
         "aws", "--version"
     ])
     print(res.stdout)
-    res = run([
-        "aws", "--region", "auto",
-        "--endpoint-url", R2_ENDPOINT,
-        "s3api", "list-objects-v2",
-        "--bucket", R2_BUCKET,
-        "--prefix", "cars/",
-        "--delimiter", "/",
-    ])
-    print(res.stdout)
-    print(res.stderr)
+    try:
+        res = run([
+            "aws", "--region", "auto",
+            "--endpoint-url", R2_ENDPOINT,
+            "s3api", "list-objects-v2",
+            "--bucket", R2_BUCKET,
+            "--prefix", "cars/",
+            "--delimiter", "/",
+        ])
+    except subprocess.CalledProcessError as e:
+        if e.stdout:
+            print(e.stdout)
+        if e.stderr:
+            print(e.stderr)
     data = json.loads(res.stdout or "{}")
     prefixes = data.get("CommonPrefixes", []) or []
     # prefix looks like "cars/BMW5 tdi2.0 supreme/"
