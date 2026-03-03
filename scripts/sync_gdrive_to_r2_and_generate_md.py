@@ -205,10 +205,8 @@ def list_r2_car_folders() -> list[str]:
             "--delimiter", "/",
         ])
     except subprocess.CalledProcessError as e:
-        if e.stdout:
-            print(e.stdout)
-        if e.stderr:
-            print(e.stderr)
+        print(e)
+        return 1
     data = json.loads(res.stdout or "{}")
     prefixes = data.get("CommonPrefixes", []) or []
     # prefix looks like "cars/BMW5 tdi2.0 supreme/"
