@@ -191,6 +191,8 @@ def list_r2_car_folders() -> list[str]:
     List prefixes (folders) under s3://bucket/cars/
     We use aws s3api list-objects-v2 with Delimiter='/'
     """
+    res = run([ "aws", "configure", "list" ])
+    print(res.stdout)
     res = run([
         "aws", "--endpoint-url", R2_ENDPOINT,
         "s3api", "list-objects-v2",
