@@ -11,19 +11,7 @@ jobs:
   sync:
     runs-on: ubuntu-latest
 
-    env:
-      R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
-      R2_BUCKET: ${{ secrets.R2_BUCKET }}
-      R2_PUBLIC_BASE_URL: ${{ secrets.R2_PUBLIC_BASE_URL }}
-      GDRIVE_FOLDER_ID: ${{ secrets.GDRIVE_FOLDER_ID }}
-      AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
-      AWS_DEFAULT_REGION: auto
-      AWS_REGION: auto
-      AWS_EC2_METADATA_DISABLED: "true"
-      AWS_PROFILE: ""
-      AWS_CONFIG_FILE=: "/dev/null"
-      AWS_SHARED_CREDENTIALS_FILE: "/dev/null"
+    
 
     steps:
       - name: Checkout
@@ -64,6 +52,16 @@ jobs:
       #    PY
 
       - name: Debug AWS env
+        env:
+          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+          R2_BUCKET: ${{ secrets.R2_BUCKET }}
+          R2_PUBLIC_BASE_URL: ${{ secrets.R2_PUBLIC_BASE_URL }}
+          GDRIVE_FOLDER_ID: ${{ secrets.GDRIVE_FOLDER_ID }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: auto
+          AWS_REGION: auto
+          AWS_EC2_METADATA_DISABLED: "true"
         run: |
           echo "GDRIVE_FOLDER_ID set? $(test -n "$GDRIVE_FOLDER_ID" && echo yes || echo no)"
           echo "AWS_ACCESS_KEY_ID set? $(test -n "$AWS_ACCESS_KEY_ID" && echo yes || echo no)"
