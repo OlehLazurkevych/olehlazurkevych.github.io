@@ -192,21 +192,12 @@ def list_r2_car_folders() -> list[str]:
     We use aws s3api list-objects-v2 with Delimiter='/'
     """
     res = run([
-        "aws", "--version"
+        "aws", "--endpoint-url", R2_ENDPOINT,
+        "s3api", "list-objects-v2",
+        "--bucket", R2_BUCKET,
+        "--prefix", "cars/",
+        "--delimiter", "/",
     ])
-    print(res.stdout)
-    try:
-        res = run([
-            "aws", "--region", "auto",
-            "--endpoint-url", R2_ENDPOINT,
-            "s3api", "list-objects-v2",
-            "--bucket", R2_BUCKET,
-            "--prefix", "cars/",
-            "--delimiter", "/",
-        ])
-    except subprocess.CalledProcessError as e:
-        print(e)
-        return 1
     data = json.loads(res.stdout or "{}")
     prefixes = data.get("CommonPrefixes", []) or []
     # prefix looks like "cars/BMW5 tdi2.0 supreme/"
