@@ -132,7 +132,7 @@ def list_gdrive_photos_for_folder(
     if not car_folder_id:
         raise RuntimeError(f"Could not find car folder '{car_folder_name}' under 'cars/'.")
 
-    files = _list_children(drive, car_folder_id, only_files=True, verbose=True)
+    files = _list_children(drive, car_folder_id, only_files=True)
     return sorted([f["name"] for f in files if f.get("name")])
 
 
@@ -305,7 +305,6 @@ def main():
         sync_local_to_r2(local_dst, folder_name)
 
         photo_files = list_gdrive_photos_for_folder(drive, GDRIVE_FOLDER_ID, folder_name)
-        print(f"photo_files in {folder_name}:", md.relative_to(REPO_ROOT))
         md = create_md(folder_name, photo_files)
         print("Created:", md.relative_to(REPO_ROOT))
 

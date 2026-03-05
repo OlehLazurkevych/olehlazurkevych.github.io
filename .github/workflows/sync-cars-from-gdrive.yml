@@ -33,22 +33,6 @@ jobs:
           workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
           service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
 
-      #- name: Test Drive access (list files)
-      #  env:
-      #    GDRIVE_FOLDER_ID: ${{ secrets.GDRIVE_FOLDER_ID }}
-      #  run: |
-      #    python - <<'PY'
-      #    from googleapiclient.discovery import build
-      #    from google.auth import default
-      #    creds, _ = default(scopes=["https://www.googleapis.com/auth/drive.readonly"])
-      #    drive = build("drive", "v3", credentials=creds)
-      #    folder_id = __import__("os").environ["GDRIVE_FOLDER_ID"]
-      #    q = f"'{folder_id}' in parents and trashed = false"
-      #    res = drive.files().list(q=q, fields="files(id,name,mimeType)").execute()
-      #    for f in res.get("files", []):
-      #        print(f["name"], f["mimeType"], f["id"])
-      #    PY
-
       - name: Run sync script
         env:
           R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
@@ -63,14 +47,14 @@ jobs:
         run: |
           python scripts/sync_gdrive_to_r2_and_generate_md.py
 
-      #- name: Commit and push changes (if any)
-      #  run: |
-      #    if git status --porcelain | grep -q .; then
-      #      git config user.name "github-actions[bot]"
-      #      git config user.email "github-actions[bot]@users.noreply.github.com"
-      #      git add _cars/
-      #      git commit -m "chore: add new car md files"
-      #      git push
-      #    else
-      #      echo "No changes to commit."
-      #    fi
+      - name: Commit and push changes (if any)
+        run: |
+          if git status --porcelain | grep -q .; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add _cars/
+            git commit -m "chore: add new car md files"
+            git push
+          else
+            echo "No changes to commit."
+          fi
