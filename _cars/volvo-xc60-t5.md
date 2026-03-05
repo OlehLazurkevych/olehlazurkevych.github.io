@@ -9,10 +9,10 @@ is_sold: true
 under_deposit: true
 on_site: false
 photos:
-  - https://res.cloudinary.com/dpllddkot/image/upload/v1769817552/2026-01-31_01.53.20_mn5jwg.jpg
-  - https://res.cloudinary.com/dpllddkot/image/upload/v1769817553/2026-01-31_01.53.23_dayxdc.jpg
-  - https://res.cloudinary.com/dpllddkot/image/upload/v1769817553/2026-01-31_01.53.26_bqrru6.jpg
-  - https://res.cloudinary.com/dpllddkot/image/upload/v1769817553/2026-01-31_01.53.30_z3gmy0.jpg
+  - https://images.autowelt.lviv.ua/cars/Volvo%20XC60%20T5%20hbvy/1.jpg
+  - https://images.autowelt.lviv.ua/cars/Volvo%20XC60%20T5%20hbvy/2.jpg
+  - https://images.autowelt.lviv.ua/cars/Volvo%20XC60%20T5%20hbvy/3.jpg
+  - https://images.autowelt.lviv.ua/cars/Volvo%20XC60%20T5%20hbvy/4.jpg
 ---
 Автомобіль пригнаний з США. 
 Комплектація: підігрів сидінь, без ключовий доступ, парктроніки перед та зад, панорама, люк, камера заднього виду, LED приборна панель

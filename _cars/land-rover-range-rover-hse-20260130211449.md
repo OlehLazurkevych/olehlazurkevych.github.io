@@ -9,12 +9,12 @@ drive: Передній привід
 under_deposit: false
 on_site: true
 photos:
-  - https://res.cloudinary.com/dpllddkot/image/upload/v1769805850/2026-01-30_22.42.26_tshwqh.jpg
-  - https://res.cloudinary.com/dpllddkot/image/upload/v1769805850/2026-01-30_22.42.30_s8t48o.jpg
-  - https://res.cloudinary.com/dpllddkot/image/upload/v1769805852/2026-01-30_22.42.35_ejuur2.jpg
-  - https://res.cloudinary.com/dpllddkot/image/upload/v1769805853/2026-01-30_22.42.40_qnteaq.jpg
-  - https://res.cloudinary.com/dpllddkot/image/upload/v1769805854/2026-01-30_22.42.45_w8wcon.jpg
-  - https://res.cloudinary.com/dpllddkot/image/upload/v1769805856/2026-01-30_22.42.50_mlx6b9.jpg
+  - https://images.autowelt.lviv.ua/cars/Land%20Rover%20Range%20Rover%20HSE%20vwwu/1.jpg
+  - https://images.autowelt.lviv.ua/cars/Land%20Rover%20Range%20Rover%20HSE%20vwwu/2.jpg
+  - https://images.autowelt.lviv.ua/cars/Land%20Rover%20Range%20Rover%20HSE%20vwwu/3.jpg
+  - https://images.autowelt.lviv.ua/cars/Land%20Rover%20Range%20Rover%20HSE%20vwwu/4.jpg
+  - https://images.autowelt.lviv.ua/cars/Land%20Rover%20Range%20Rover%20HSE%20vwwu/5.jpg
+  - https://images.autowelt.lviv.ua/cars/Land%20Rover%20Range%20Rover%20HSE%20vwwu/6.jpg
 video_url: https://www.instagram.com/reel/DUD84-YjKgC/?igsh=MTR0OThqaTR4eGk4aQ==
 ---
 Автомобіль привезений з США

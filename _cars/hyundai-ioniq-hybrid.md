@@ -9,10 +9,10 @@ drive: Передній привід
 under_deposit: false
 on_site: false
 photos:
-  - https://res.cloudinary.com/dpllddkot/image/upload/v1769817553/2026-01-31_01.53.52_mq5lky.jpg
-  - https://res.cloudinary.com/dpllddkot/image/upload/v1769817554/2026-01-31_01.53.55_vmqcwk.jpg
-  - https://res.cloudinary.com/dpllddkot/image/upload/v1769817554/2026-01-31_01.53.58_ednxe3.jpg
-  - https://res.cloudinary.com/dpllddkot/image/upload/v1769817554/2026-01-31_01.54.02_sr9mib.jpg
+  - https://images.autowelt.lviv.ua/cars/Hyundai%20Ioniq%20Hybrid%20ofdi/1.jpg
+  - https://images.autowelt.lviv.ua/cars/Hyundai%20Ioniq%20Hybrid%20ofdi/2.jpg
+  - https://images.autowelt.lviv.ua/cars/Hyundai%20Ioniq%20Hybrid%20ofdi/3.jpg
+  - https://images.autowelt.lviv.ua/cars/Hyundai%20Ioniq%20Hybrid%20ofdi/4.jpg
 video_url: https://www.instagram.com/reel/DTImoz2DPjy/?igsh=MXY0MGxhMTdmNTRkeA==
 ---
 Автомобіль пригнаний з США. 

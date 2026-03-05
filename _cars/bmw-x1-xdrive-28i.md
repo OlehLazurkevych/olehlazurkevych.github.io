@@ -10,10 +10,10 @@ is_sold: true
 under_deposit: false
 on_site: true
 photos:
-  - https://res.cloudinary.com/dpllddkot/image/upload/v1769817554/2026-01-31_01.53.36_n4d1b9.jpg
-  - https://res.cloudinary.com/dpllddkot/image/upload/v1769817553/2026-01-31_01.53.39_kab26g.jpg
-  - https://res.cloudinary.com/dpllddkot/image/upload/v1769817553/2026-01-31_01.53.42_mwx7uk.jpg
-  - https://res.cloudinary.com/dpllddkot/image/upload/v1769817553/2026-01-31_01.53.45_u0buq8.jpg
+  - https://images.autowelt.lviv.ua/cars/BMW%20X1%20Xdrive%2028i%20ryfz/1.jpg
+  - https://images.autowelt.lviv.ua/cars/BMW%20X1%20Xdrive%2028i%20ryfz/2.jpg
+  - https://images.autowelt.lviv.ua/cars/BMW%20X1%20Xdrive%2028i%20ryfz/3.jpg
+  - https://images.autowelt.lviv.ua/cars/BMW%20X1%20Xdrive%2028i%20ryfz/4.jpg
 video_url: https://www.instagram.com/reel/DTgPTC_jKka/?igsh=MWNnbXVoZnUwNGZmbQ==
 ---
 Автомобіль пригнаний з США. 

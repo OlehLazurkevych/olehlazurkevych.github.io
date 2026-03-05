@@ -10,13 +10,13 @@ drive: Передній привід
 under_deposit: true
 on_site: true
 photos:
-  - https://res.cloudinary.com/dpllddkot/image/upload/v1769805867/2026-01-30_22.43.31_e1cwpz.jpg
-  - https://res.cloudinary.com/dpllddkot/image/upload/v1769805870/2026-01-30_22.43.35_fwqlt3.jpg
-  - https://res.cloudinary.com/dpllddkot/image/upload/v1769805870/2026-01-30_22.43.39_oiojk9.jpg
-  - https://res.cloudinary.com/dpllddkot/image/upload/v1769805871/2026-01-30_22.43.42_wosu6u.jpg
-  - https://res.cloudinary.com/dpllddkot/image/upload/v1769805874/2026-01-30_22.43.45_u8lxeg.jpg
-  - https://res.cloudinary.com/dpllddkot/image/upload/v1769805875/2026-01-30_22.43.49_use4rj.jpg
-  - https://res.cloudinary.com/dpllddkot/image/upload/v1769805878/2026-01-30_22.43.54_he5yfm.jpg
+  - https://images.autowelt.lviv.ua/cars/Audi%20Q7%20Premium%20Plus%20jlqr/1.jpg
+  - https://images.autowelt.lviv.ua/cars/Audi%20Q7%20Premium%20Plus%20jlqr/2.jpg
+  - https://images.autowelt.lviv.ua/cars/Audi%20Q7%20Premium%20Plus%20jlqr/3.jpg
+  - https://images.autowelt.lviv.ua/cars/Audi%20Q7%20Premium%20Plus%20jlqr/4.jpg
+  - https://images.autowelt.lviv.ua/cars/Audi%20Q7%20Premium%20Plus%20jlqr/5.jpg
+  - https://images.autowelt.lviv.ua/cars/Audi%20Q7%20Premium%20Plus%20jlqr/6.jpg
+  - https://images.autowelt.lviv.ua/cars/Audi%20Q7%20Premium%20Plus%20jlqr/7.jpg
 video_url: https://www.instagram.com/reel/DTpmk2hjKcJ/?igsh=MXJjcmZvemoxYm03bA==
 ---
 Автомобіль пригнаний з США цілий

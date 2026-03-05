@@ -10,11 +10,11 @@ drive: Повний привід
 under_deposit: false
 on_site: true
 photos:
-  - https://res.cloudinary.com/dpllddkot/image/upload/v1769805846/2026-01-30_21.49.01_knq3au.jpg
-  - https://res.cloudinary.com/dpllddkot/image/upload/v1769805847/2026-01-30_21.49.08_icufvx.jpg
-  - https://res.cloudinary.com/dpllddkot/image/upload/v1769805847/2026-01-30_21.49.13_sljwuq.jpg
-  - https://res.cloudinary.com/dpllddkot/image/upload/v1769805847/2026-01-30_21.49.17_crkdj6.jpg
-  - https://res.cloudinary.com/dpllddkot/image/upload/v1769805849/2026-01-30_22.42.19_a14wn9.jpg
+  - https://images.autowelt.lviv.ua/cars/Audi%20Q7%20Premium%20Plus%20jlmn/1.jpg
+  - https://images.autowelt.lviv.ua/cars/Audi%20Q7%20Premium%20Plus%20jlmn/2.jpg
+  - https://images.autowelt.lviv.ua/cars/Audi%20Q7%20Premium%20Plus%20jlmn/3.jpg
+  - https://images.autowelt.lviv.ua/cars/Audi%20Q7%20Premium%20Plus%20jlmn/4.jpg
+  - https://images.autowelt.lviv.ua/cars/Audi%20Q7%20Premium%20Plus%20jlmn/5.jpg
 video_url: https://www.instagram.com/reel/DUG3jrIjPyt/?igsh=MXB5bWYxcjV6d2xyZQ==
 ---
 Автомобіль пригнаний з США цілий
