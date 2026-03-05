@@ -1,6 +1,6 @@
 ---
-post_hidden: false
 layout: car
+post_hidden: true
 created_at: 2026-03-05T13:18:48.266+00:00
 title: Volkswagen Tiguan SE
 price_usd: 1234
