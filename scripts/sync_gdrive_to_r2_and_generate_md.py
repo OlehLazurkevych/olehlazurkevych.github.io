@@ -31,6 +31,7 @@ def _list_children(
     *,
     only_folders: bool = False,
     only_files: bool = False,
+    verbose: bool = False,
 ) -> List[Dict]:
     """
     List direct children of a Drive folder (handles pagination).
@@ -63,6 +64,8 @@ def _list_children(
             )
             .execute()
         )
+        if verbose:
+            print(resp)
         out.extend(resp.get("files", []) or [])
         page_token = resp.get("nextPageToken")
         if not page_token:
@@ -121,16 +124,15 @@ def list_gdrive_photos_for_folder(
       <root>/cars/<car_folder_name>/
     Returns sorted list of filenames (no recursion).
     """
-    print("_find_child_folder_id")
     cars_id = _find_child_folder_id(drive, gdrive_root_folder_id, "cars")
     if not cars_id:
         raise RuntimeError("Could not find a 'cars' folder under the provided root folder ID.")
-    print("_find_child_folder_id2")
+
     car_folder_id = _find_child_folder_id(drive, cars_id, car_folder_name)
     if not car_folder_id:
         raise RuntimeError(f"Could not find car folder '{car_folder_name}' under 'cars/'.")
-    print("_list_children")
-    files = _list_children(drive, car_folder_id, only_files=True)
+
+    files = _list_children(drive, car_folder_id, only_files=True, verbose=True)
     return sorted([f["name"] for f in files if f.get("name")])
 
 
@@ -175,9 +177,11 @@ def run(cmd: list[str], *, check=True, capture=True, text=True, env=None, cwd=No
         env=env,
         cwd=cwd,
     )
-    print("return code:", p.returncode)
-    print("stdout:\n", p.stdout)
-    print("stderr:\n", p.stderr)
+    if p.returncode:
+        if p.returncode != 0:
+            print("return code:", p.returncode)
+            print("stdout:\n", p.stdout)
+            print("stderr:\n", p.stderr)
     return p
 
 def slugify_and_date(name: str) -> str:
