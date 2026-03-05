@@ -700,6 +700,10 @@ a {
   letter-spacing: .2px;
 }
 
+.cardetail__price--sold {
+  color: #888;
+}
+
 .cardetail-meta-ico {
   width: 18px;
   height: 18px;
