@@ -1,11 +1,13 @@
 import os
 import re
+import sys
 import json
 import shutil
 import subprocess
 import unicodedata
 import random
 import string
+import argparse
 from typing import Dict, List, Optional
 from datetime import datetime, timezone
 from pathlib import Path
@@ -285,18 +287,8 @@ def create_md(folder_name: str, r2_folder_name: str, photo_files: list[str]) -> 
     md_path.write_text("\n".join(lines), encoding="utf-8")
     return md_path
 
-def main():
-    creds, _ = default(scopes=["https://www.googleapis.com/auth/drive"])
-    drive = build("drive", "v3", credentials=creds, cache_discovery=False)
 
-    meta = drive.files().get(
-        fileId="1l7_u6gYdXsAO9QdjTwyy6__hZCdkueYs",
-        fields="id,name,driveId,ownedByMe,capabilities(canDelete,canTrash,canMoveItemWithinDrive)",
-        supportsAllDrives=True,
-    ).execute()
-
-    print(meta)
-
+def normal_sync(drive) -> None:
     ensure_dirs()
 
     # Clean working folder each run
@@ -344,6 +336,62 @@ def main():
 
     deleted_count = delete_all_inside_car_folder(drive, GDRIVE_FOLDER_ID)
     print(f"Delete {deleted_count} folders in cars on GDrive")
+
+
+def create_car_folder(drive) -> None:
+    folder_metadata = {
+        "name": "AutoWelt_cars",
+        "mimeType": "application/vnd.google-apps.folder"
+    }
+
+    folder = drive.files().create(
+        body=folder_metadata,
+        fields="id",
+        supportsAllDrives=True
+    ).execute()
+
+    print("Folder ID:", folder["id"])
+
+    permission = {
+        "type": "user",
+        "role": "writer",
+        "emailAddress": "olehlazurkevych@gmail.com"
+    }
+
+    drive.permissions().create(
+        fileId=folder["id"],
+        body=permission,
+        sendNotificationEmail=False
+    ).execute()
+
+
+def delete_car_folder(drive) -> None:
+    print()
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--run-mode", default="normal_sync", help="Run mode. Determines the operation type. Options: normal_sync, create_car_folder, delete_car_folder")
+    args = ap.parse_args()
+    correct_args = ['normal_sync', 'create_car_folder', 'delete_car_folder']
+
+    if not args.run_mode.exists() or not args.run_mode in correct_args:
+        print(f"ERROR: Provide correct --run-mode", file=sys.stderr)
+        sys.exit(2)
+
+    creds, _ = default(scopes=["https://www.googleapis.com/auth/drive"])
+    drive = build("drive", "v3", credentials=creds, cache_discovery=False)
+
+    # Run in normal mode
+    if (args.run_mode == "normal_sync"):
+        normal_sync(drive)
+    # Run to create a new SA shared car folder
+    elif (args.run_mode == "create_car_folder"):
+        create_car_folder(drive)
+    # Run to delete SA shared car folder
+    elif (args.run_mode == "delete_car_folder"):
+        delete_car_folder(drive)
+
 
 if __name__ == "__main__":
     main()

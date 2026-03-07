@@ -1,7 +1,17 @@
 name: Sync cars from GDrive to R2 and generate md
 
 on:
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      run_mode:
+        description: "Select run mode"
+        required: true
+        default: normal_sync
+        type: choice
+        options:
+          - normal_sync
+          - create_car_folder
+          - delete_car_folder
 
 permissions:
   id-token: write
@@ -47,10 +57,10 @@ jobs:
           AWS_REGION: auto
           AWS_EC2_METADATA_DISABLED: "true"
         run: |
-          python scripts/sync_gdrive_to_r2_and_generate_md.py
+          python scripts/sync_gdrive_to_r2_and_generate_md.py --run-mode "${{ github.event.inputs.run_mode }}"
 
       - name: Commit and push changes (if any)
-        if: success()
+        if: ${{ success() && github.event.inputs.run_mode == 'normal_sync' }}
         run: |
           if git status --porcelain | grep -q .; then
             git config user.name "github-actions[bot]"
