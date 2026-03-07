@@ -289,6 +289,14 @@ def main():
     creds, _ = default(scopes=["https://www.googleapis.com/auth/drive"])
     drive = build("drive", "v3", credentials=creds, cache_discovery=False)
 
+    meta = drive.files().get(
+        fileId="1l7_u6gYdXsAO9QdjTwyy6__hZCdkueYs",
+        fields="id,name,driveId,ownedByMe,capabilities(canDelete,canTrash,canMoveItemWithinDrive)",
+        supportsAllDrives=True,
+    ).execute()
+
+    print(meta)
+
     ensure_dirs()
 
     # Clean working folder each run
