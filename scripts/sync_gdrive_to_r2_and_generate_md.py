@@ -105,16 +105,11 @@ def list_gdrive_car_folders(drive, gdrive_root_folder_id: str) -> List[str]:
     """
     Expects structure:
       <gdrive_root_folder_id>/
-        cars/
-          <car-folder-1>/
-          <car-folder-2>/
+        <car-folder-1>/
+        <car-folder-2>/
     Returns sorted list of car folder names under cars/.
     """
-    cars_id = _find_child_folder_id(drive, gdrive_root_folder_id, "cars")
-    if not cars_id:
-        raise RuntimeError("Could not find a 'cars' folder under the provided root folder ID.")
-
-    car_folders = _list_children(drive, cars_id, only_folders=True)
+    car_folders = _list_children(drive, gdrive_root_folder_id, only_folders=True)
     return sorted([f["name"] for f in car_folders if f.get("name")])
 
 
@@ -125,14 +120,10 @@ def list_gdrive_photos_for_folder(
 ) -> List[str]:
     """
     Lists file names inside:
-      <root>/cars/<car_folder_name>/
+      <root>/<car_folder_name>/
     Returns sorted list of filenames (no recursion).
     """
-    cars_id = _find_child_folder_id(drive, gdrive_root_folder_id, "cars")
-    if not cars_id:
-        raise RuntimeError("Could not find a 'cars' folder under the provided root folder ID.")
-
-    car_folder_id = _find_child_folder_id(drive, cars_id, car_folder_name)
+    car_folder_id = _find_child_folder_id(drive, gdrive_root_folder_id, car_folder_name)
     if not car_folder_id:
         raise RuntimeError(f"Could not find car folder '{car_folder_name}' under 'cars/'.")
 
@@ -148,19 +139,15 @@ def copy_gdrive_folder_local(
 ) -> None:
     """
     Downloads the contents of:
-      <root>/cars/<car_folder_name>/
+      <root>/<car_folder_name>/
     into:
       dst_dir
 
     Recurses into subfolders if they exist.
     """
-    cars_id = _find_child_folder_id(drive, gdrive_root_folder_id, "cars")
-    if not cars_id:
-        raise RuntimeError("Could not find a 'cars' folder under the provided root folder ID.")
-
-    car_folder_id = _find_child_folder_id(drive, cars_id, car_folder_name)
+    car_folder_id = _find_child_folder_id(drive, gdrive_root_folder_id, car_folder_name)
     if not car_folder_id:
-        raise RuntimeError(f"Could not find car folder '{car_folder_name}' under 'cars/'.")
+        raise RuntimeError(f"Could not find car folder '{car_folder_name}' under root folder.")
 
     target_root = dst_dir
     target_root.mkdir(parents=True, exist_ok=True)
@@ -171,11 +158,7 @@ def copy_gdrive_folder_local(
 
 def delete_all_inside_car_folder(drive, gdrive_root_folder_id: str) -> int:
     deleted = 0
-    cars_id = _find_child_folder_id(drive, gdrive_root_folder_id, "cars")
-    if not cars_id:
-        raise RuntimeError("Could not find a 'cars' folder under the provided root folder ID.")
-
-    car_folders = _list_children(drive, cars_id, only_folders=True, verbose=True)
+    car_folders = _list_children(drive, gdrive_root_folder_id, only_folders=True, verbose=True)
 
     for item in car_folders:
         drive.files().update(
